@@ -4,21 +4,65 @@
 
 - clean: ['~']
 
+- sudo:
+  - shell:
+    - ["add-apt-repository ppa:neovim-ppa/unstable", "Agregando repositorio de neovim night"]
+    - ["apt update", "Actualizando"]
+  - apt:
+    - ["neovim", "Instalando neovim"]
+    - ["python3-pip", "Instalado pip3"]
+    - ["python3-venv", "Instalando venv"]
+    - ["universal-ctags", "Instalando ctags"]
+    - ["graphiz", "Instalando graphiz"]
+    - ["fd-find", "Instalando fd"]
+  - shell:
+    - ["ln -s $(which fdfind) ~/.local/bin/fd", "Creando link simbolico fd"]
+
 - shell:
-  - ["sudo add-apt-repository ppa:neovim-ppa/unstable", "sudo apt update", "sudo apt install neovim git python3-pip python3-venv universal-ctags graphiz fd-find"]
-  - ["sudo ln -s $(which fdfind) ~/.local/bin/fd"]
-  - ["sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'"]
-  - ["curl https://sh.rustup.rs -sSf | sh", ". .profile", "cargo install --locked code-minimap", "cargo install --locked bat"]
-  - ["curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -", "sudo apt install -y nodejs"]
+  - ["sh -c 'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'", "Instalando vim-plug"]
+
+- rust:
+  - stable:
+    - targets:
+      - x86_64-unknown-linux-gnu
+    - components:
+      - rust-docs
+      - rust-std
+      - rustc
+      - rustfmt
+
+- cargo:
+  - cargo-update
+  - clippy
+  - code-minimap:
+    - locked
+  - bat:
+    - locked
+
+- shell:
+  - ["curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -", "Descargando nodejs"]
+
+- sudo:
+  - apt:
+    - ["nodejs", "Instalando nodejs"]
+
+- shell:
   - ["wget https://go.dev/dl/go1.18.2.linux-amd64.tar.gz", "rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.2.linux-amd64.tar.gz"]
-  - ["export PATH=$PATH:/usr/local/go/bin", "export PATH=$PATH:/usr/local/fd/bin"]
-  - [". .profile", "pip3 install lazygit", "pip3 install lizard"]
+  - ["echo 'export PATH=$PATH:/usr/local/go/bin' >> .profile"]
+  - ["echo 'export PATH=$PATH:/usr/local/fd/bin' >> .profile"]
+  - [". .profile"]
+  - ["pip3 install lizard"]
+
+- go:
+  - github.com/jesseduffield/lazygit
+
+- shell:
+  - ["echo 'export PATH=PATH:$HOME/.go/bin' >> .profile"]
 
 - link:
-    ~/.config/nvim/init.vim: init.vim
-    ~/.config/nvim/plugins.vim: plugins.vim
-    ~/.config/nvim/plugins/: plugins
+    ~/.config/nvim/init.vim: nvim/init.vim
+      ~/.config/nvim/plugins.vim: nvim/plugins.vim
+    ~/.config/nvim/plugins/: nvim/plugins/
 
 - shell:
-  - ["nvim +PlugInstall"]
+  - ["nvim +PlugInstall", "Instalando plugins"]

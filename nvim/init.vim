@@ -97,7 +97,7 @@ lua << EOF
 local actions = require 'fzf-lua.actions'
 require'fzf-lua'.setup{
 files = {
-	cmd = [[fd --color never --type f --hidden]] ..
+	cmd = [[fd --color never --type f --hidden ]] ..
 	[[--exclude .git --exclude node_modules --exclude '*.pyc' --exclude Games]]
 },
 grep_visual = { cmd = "--regexp --column --line-number --no-heading --color=always --smart-case"}

@@ -29,9 +29,9 @@ local bo = vim.bo
     red2 = '#5f0000'
 } ]]
 
---[[ local colors = {
+local colors = {
     bg = '#16161d',
-    black = '#16161d',
+    black = '#000000',
     yellow = '#dca561',
     cyan = '#7fb4ca',
     grey = '#717c7c',
@@ -50,23 +50,23 @@ local bo = vim.bo
     skyblue = '#a3d5d5',
     red = '#e46876',
     red2 = '#ff5d62'
-} ]]
+}
 
 local vi_mode_colors = {
-    NORMAL = 'violet',
-    OP = 'green',
-    INSERT = 'green',
-    VISUAL = 'skyblue',
-    BLOCK = 'skyblue',
-    REPLACE = 'violet',
-    ['V-REPLACE'] = 'violet',
-    ENTER = 'cyan',
-    MORE = 'cyan',
-    SELECT = 'orange',
-    COMMAND = 'green',
-    SHELL = 'green',
-    TERM = 'green',
-    NONE = 'yellow'
+    NORMAL = colors.violet,
+    OP = colors.green,
+    INSERT = colors.green,
+    VISUAL = cyan,
+    BLOCK = cyan,
+    REPLACE = colors.violet,
+    ['V-REPLACE'] = colors.violet,
+    ENTER = colors.oceanblue,
+    MORE = colors.oceanblue,
+    SELECT = colors.orange,
+    COMMAND = colors.green,
+    SHELL = colors.green,
+    TERM = colors.green,
+    NONE = colors.yellow
 }
 
 local icons = {
@@ -164,7 +164,7 @@ table.insert(components.active[1], {
     right_sep = function()
     local val = {str = '█',}
         val.fg = vi_mode_utils.get_mode_color()
-        val.bg = 'grey'
+        val.bg = colors.black
         return val
     end,
     icon = ''
@@ -174,18 +174,18 @@ table.insert(components.active[1], {
         provider = 'git_branch',
         enabled = function() return has_width_gt(40) end,
         hl = {
-            fg = 'hotpink',
-            bg = 'grey',
+            fg = colors.hotpink,
+            bg = colors.grey2,
             style = 'bold'
         },
         icon = '  ',
         left_sep = function()
-            local val = {hl = {fg = 'black', bg = 'grey'}}
+            local val = {hl = {fg = colors.bg, bg = colors.grey2}}
                 if b.gitsigns_status_dict then val.str = '' else val.str = '' end
             return val
         end,
         right_sep = function()
-            local val = {hl = {fg = 'grey', bg = 'grey'}}
+            local val = {hl = {fg = colors.grey2, bg = colors.grey2}}
             -- if not has_width_gt(40) then val.str = ' '
             if b.gitsigns_status_dict and not has_width_gt(40) then val.str = '' else val.str = ' ' end
             return val
@@ -196,8 +196,8 @@ table.insert(components.active[1], {
         provider = 'git_diff_added',
         enabled = function() return has_width_gt(50) end,
         hl = {
-            fg = 'green',
-            bg = 'grey'
+            fg = colors.green,
+            bg = colors.grey2
         },
     })
     -- git diff changed
@@ -205,8 +205,8 @@ table.insert(components.active[1], {
         provider = 'git_diff_changed',
         enabled = function() return has_width_gt(50) end,
         hl = {
-            fg = orange, --colors.orange
-            bg = grey --colors.grey
+            fg = colors.orange,
+            bg = colors.grey2
         },
     })
     -- git diff remove
@@ -214,8 +214,8 @@ table.insert(components.active[1], {
         provider = 'git_diff_removed',
         enabled = function() return has_width_gt(50) end,
         hl = {
-            fg = 'red',
-            bg = 'grey'
+            fg = colors.red,
+            bg = colors.grey2
         },
         --[[ right_sep = function()
             local val = {hl = {fg = 'grey', bg = 'black'}}
@@ -228,12 +228,12 @@ table.insert(components.active[1], {
         provider = 'file_info',
         hl = {
             fg = 'white2',
-            bg = 'bg',
+            bg = colors.bg,
             style = 'bold',
         },
         type = 'unique',
         left_sep = function()
-            local val = {hl = {fg = 'grey', bg = 'black'}}
+            local val = {hl = {fg = colors.grey2, bg = colors.bg}}
             if b.gitsigns_status_dict and has_width_gt(40) then val.str = '█' else val.str = ' ' end
             return val
         end,
@@ -257,13 +257,13 @@ table.insert(components.active[1], {
     table.insert(components.active[2], {
         provider = 'diagnostic_errors',
         enabled = function() if has_width_gt(50) then return lsp.diagnostics_exist(vim.diagnostic.severity.ERROR) end end,
-        hl = { fg = 'red' },
+        hl = { fg = colors.red },
     })
     -- warnings
     table.insert(components.active[2], {
         provider = 'diagnostic_warnings',
         enabled = function() if has_width_gt(50) then return lsp.diagnostics_exist(vim.diagnostic.severity.WARN) end end,
-        hl = { fg = 'yellow' },
+        hl = { fg = colors.yellow },
     })
     -- hints
     table.insert(components.active[2], {
@@ -276,7 +276,7 @@ table.insert(components.active[1], {
       --  enabled = function() return has_width_gt(45) end,
         provider = 'diagnostic_info',
         enabled = function() if has_width_gt(50) then return lsp.diagnostics_exist(vim.diagnostic.severity.INFO) end end,
-        hl = { fg = 'skyblue' },
+        hl = { fg = colors.skyblue },
     })
     -- fileType
     table.insert(components.active[2], {
@@ -291,11 +291,11 @@ table.insert(components.active[1], {
             else
                 val.fg = 'white'
             end
-            val.bg = 'grey3'
+            val.bg = 'black'
             return val
         end,
-        left_sep = {' ', {str = '█', hl = {bg = 'black', fg = 'grey3'}}},
-        right_sep = {{str = '█', hl = {fg = 'grey3'}}}
+        left_sep = {' ', {str = '█', hl = {bg = colors.bg, fg = 'black'}}},
+        right_sep = {{str = '█', hl = {fg = 'black'}}}
     })
     -- file icon
     table.insert(components.active[2], {
@@ -318,13 +318,13 @@ table.insert(components.active[1], {
             else
                 val.fg = 'white'
             end
-            val.bg = 'grey3'
+            val.bg = 'black'
             val.style = 'bold'
             return val
         end,
         --right_sep = {str = '', hl = {fg = 'grey', bg = 'grey3'}},
         right_sep = function()
-            local val = {hl = {fg = 'grey', bg = 'grey3'}}
+            local val = {hl = {fg = 'grey', bg = 'black'}}
             if not has_width_gt(45) then val.str = ' ' else val.str = ' ' end
             return val
         end,
@@ -339,22 +339,22 @@ table.insert(components.active[1], {
             end
             return venv[#venv]
         end,
-        hl = { fg = 'cyan', bg = 'grey3'},
+        hl = { fg = 'cyan', bg = 'black'},
         enabled = function() return has_width_gt(60) and os.getenv('VIRTUAL_ENV') ~= nil end,
-        left_sep = {str = '(', hl = { fg = 'cyan', bg = 'grey3'}},
-        right_sep = {str = ')', hl = { fg = 'cyan', bg = 'grey3'}},
+        left_sep = {str = '(', hl = { fg = 'cyan', bg = 'black'}},
+        right_sep = {str = ')', hl = { fg = 'cyan', bg = 'black'}},
     })
     -- server lps name
     table.insert(components.active[2], {
         provider = 'lsp_client_names',
         enabled = function() return has_width_gt(55) end,
         hl = {
-            fg = 'yellow',
-            bg = 'grey3'
+            fg = colors.yellow,
+            bg = 'black'
         },
         icon = ' ',
-        left_sep = {str = ' ', hl = {bg = 'grey3'}},
-        right_sep = {str = ' ', hl = {bg = 'grey3'}},
+        left_sep = {str = ' ', hl = {bg = 'black'}},
+        right_sep = {str = ' ', hl = {bg = 'black'}},
         --[[ right_sep = function()
             local val = {hl = {fg = 'grey', bg = 'grey3'}}
             if not has_width_gt(50) then val.str = ' ' else val.str = ' ' end
@@ -367,10 +367,10 @@ table.insert(components.active[1], {
         enabled = function() return has_width_gt(45) end,
         hl = {
             fg = 'white3',
-            bg = 'grey'
+            bg = colors.grey2
         },
-        left_sep = {{str = '█', hl = {bg = 'grey3', fg = 'grey'}}},
-        right_sep = {{str = 'block', hl = {fg = 'grey'}}},
+        left_sep = {{str = '█', hl = {bg = 'black', fg = colors.grey2}}},
+        right_sep = {{str = 'block', hl = {fg = colors.grey2}}},
     })
     -- os info
     table.insert(components.active[2], {
@@ -378,7 +378,7 @@ table.insert(components.active[1], {
         enabled = function() return has_width_gt(45) end,
         hl = {
             fg = 'white3',
-            bg = 'grey'
+            bg = colors.grey2
         },
         --right_sep = {{str = ' ', hl = {bg = 'grey2'}}},
     })
@@ -387,26 +387,26 @@ table.insert(components.active[1], {
         provider = location,
         hl = {
             fg = 'white',
-            bg = 'violet'
+            bg = colors.violet
         },
-        left_sep = {{str = '█', hl = {bg = 'grey', fg = 'violet'}}},
+        left_sep = {{str = '█', hl = {bg = colors.grey2, fg = colors.violet}}},
     })
     -- percentage
     table.insert(components.active[2], {
         provider = 'line_percentage',
         hl = {
             fg = 'white',
-            bg = 'violet'
+            bg = colors.violet
         },
-        left_sep = {{str = 'block', hl = {fg = 'violet'}}, {str = 'left', hl = {fg = 'white2', bg = 'violet'}}, {str = ' ', hl = {bg = 'violet'}}},
-        right_sep = {{str = ' ', hl = {bg = 'violet'}}},
+        left_sep = {{str = 'block', hl = {fg = colors.violet}}, {str = 'left', hl = {fg = 'white2', bg = colors.violet}}, {str = ' ', hl = {bg = colors.violet}}},
+        right_sep = {{str = ' ', hl = {bg = colors.violet}}},
     })
     -- scroll_bar
     table.insert(components.active[2], {
         provider = 'scroll_bar',
         hl = {
-            fg = 'orange',
-            bg = 'violet'
+            fg = colors.orange,
+            bg = colors.violet
         }
     })
 
@@ -434,30 +434,30 @@ table.insert(components.active[1], {
             else
                 val.fg = 'white'
             end
-            val.bg = 'violet'
+            val.bg = colors.violet
             val.style = 'bold'
             return val
         end,
-        left_sep = {str = ' ', hl = {bg = 'violet'}},
-        right_sep = {str = ' ', hl = {bg = 'violet'}},
+        left_sep = {str = ' ', hl = {bg = colors.violet}},
+        right_sep = {str = ' ', hl = {bg = colors.violet}},
     })
     -- filename
     table.insert(components.inactive[1], {
         provider = 'file_type',
         hl = {
             fg = 'white',
-            bg = 'violet',
+            bg = colors.violet,
             style = 'bold'
         },
         --left_sep = {'block', {hl = {fg = 'violet'}}},
-        right_sep = {'█', {hl = {fg = 'violet', bg = 'bg'}}}
+        right_sep = {'█', {hl = {fg = colors.violet, bg = colors.bg}}}
     })
     -- filename
     table.insert(components.inactive[1], {
         provider = 'file_info',
         hl = {
             fg = 'white2',
-            bg = 'bg',
+            bg = colors.bg,
             style = 'bold',
         },
         type = 'unique',
@@ -467,11 +467,14 @@ table.insert(components.active[1], {
     })
 
     require('feline').setup({
-        -- colors = colors,
-        bg = bg, --colors.bg
-        fg = fg, --colors.fg
+        colors = colors,
+        bg = 'black',
+        fg = colors.fg,
         components = components,
         force_inactive = force_inactive,
         disable = disable,
         vi_mode_colors = vi_mode_colors
     })
+
+    require('feline').add_theme('colors', colors)
+    require('feline').use_theme('colors')

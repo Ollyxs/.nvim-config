@@ -8,8 +8,14 @@ DOTBOT_DIR="dotbot"
 DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+PLUGINS_DIR="${BASEDIR}/dotbot-plugins"
+DOTBOT_SUDO="${PLUGINS_DIR}/dotbot-sudo/sudo.py"
+DOTBOT_APT="${PLUGINS_DIR}/dotbot-apt/apt.py"
+DOTBOT_RUST="${PLUGINS_DIR}/dotbot-rust/rust.py"
+DOTBOT_GO="${PLUGINS_DIR}/dotbot-golang/go.py"
+
 cd "${BASEDIR}"
 git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -p "${DOTBOT_SUDO}" -p "${DOTBOT_APT}" -p "${DOTBOT_RUST}" -p "${DOTBOT_GO}" -c "${CONFIG}" "${@}"
