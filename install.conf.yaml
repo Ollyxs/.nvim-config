@@ -10,28 +10,18 @@
     - ["add-apt-repository ppa:neovim-ppa/unstable", "Agregando repositorio de neovim night"]
     - ["apt update", "Actualizando"]
   - apt:
-    - ["neovim"]
-    - ["python3-pip"]
-    - ["python3-venv"]
-    - ["universal-ctags"]
-    - ["graphiz"]
-    - ["fd-find"]
+    - neovim
+    - python3-pip
+    - python3-venv
+    - universal-ctags
+    - graphiz
+    - fd-find
+    - cargo
   - shell:
     - ["ln -s $(which fdfind) ~/.local/bin/fd", "Creando link simbolico fd"]
 
 - shell:
   - ["sh -c 'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'", "Instalando vim-plug"]
-
-- rust:
-  - stable:
-    - targets:
-      - x86_64-unknown-linux-gnu
-    - components:
-      - rust-docs
-      - rust-std
-      - rustc
-      - rustfmt
-      - cargo
 
 - cargo:
   - cargo-update
