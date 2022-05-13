@@ -1,6 +1,7 @@
 - default:
     link:
       create: true
+      relink: true
 
 - clean: ['~']
 
@@ -9,12 +10,12 @@
     - ["add-apt-repository ppa:neovim-ppa/unstable", "Agregando repositorio de neovim night"]
     - ["apt update", "Actualizando"]
   - apt:
-    - ["neovim", "Instalando neovim"]
-    - ["python3-pip", "Instalado pip3"]
-    - ["python3-venv", "Instalando venv"]
-    - ["universal-ctags", "Instalando ctags"]
-    - ["graphiz", "Instalando graphiz"]
-    - ["fd-find", "Instalando fd"]
+    - ["neovim"]
+    - ["python3-pip"]
+    - ["python3-venv"]
+    - ["universal-ctags"]
+    - ["graphiz"]
+    - ["fd-find"]
   - shell:
     - ["ln -s $(which fdfind) ~/.local/bin/fd", "Creando link simbolico fd"]
 
@@ -30,6 +31,7 @@
       - rust-std
       - rustc
       - rustfmt
+      - cargo
 
 - cargo:
   - cargo-update
@@ -61,7 +63,7 @@
 
 - link:
     ~/.config/nvim/init.vim: nvim/init.vim
-      ~/.config/nvim/plugins.vim: nvim/plugins.vim
+    ~/.config/nvim/plugins.vim: nvim/plugins.vim
     ~/.config/nvim/plugins/: nvim/plugins/
 
 - shell:
