@@ -54,7 +54,7 @@
 - link:
     ~/.config/nvim/init.vim: nvim/init.vim
     ~/.config/nvim/plugins.vim: nvim/plugins.vim
-    ~/.config/nvim/plugins/: nvim/plugins/
+    ~/.config/nvim/plugins: nvim/plugins
 
 - shell:
   - ["nvim +PlugInstall", "Instalando plugins"]
