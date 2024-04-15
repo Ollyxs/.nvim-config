@@ -22,11 +22,7 @@
 #        - xsel
 
 - link:
-    ~/.config/nvim/init.lua: nvim/init.lua
-    ~/.config/nvim/lazy-lock.json: nvim/lazy-lock.json
-    ~/.config/nvim/lua: nvim/lua
-    ~/.config/nvim/lazyvim.json: nvim/lazyvim.json
-    ~/.config/nvim/stylua.toml: nvim/stylua.toml
-    ~/.config/nvim/README.md: nvim/README.md
-    ~/.config/nvim/LICENSE: nvim/LICENSE
-    ~/.config/nvim/.neoconf.json: nvim/.neoconf.json
+    ~/.config/nvim:
+      create: true
+      relink: true
+      path: nvim
